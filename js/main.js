@@ -1,50 +1,56 @@
-// Archivo js/main.js - Lógica Principal Consolidada y SEGURA
+// Archivo js/main.js - Lógica Principal Consolidada
 
+// Espera a que el DOM (estructura HTML) esté completamente cargado antes de ejecutar el código
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ASUMIMOS que las variables 'auth' y 'db' fueron definidas globalmente en firebase-config.js
+    // ASUMIMOS que las variables 'auth' (Autenticación) y 'db' (Firestore)
+    // fueron definidas globalmente en js/firebase-init.js
 
     // ======================================================================
-    // 1. LÓGICA DE AUTENTICACIÓN Y REDIRECCIÓN GLOBAL (AHORA ACTIVA)
+    // 1. LÓGICA DE AUTENTICACIÓN Y REDIRECCIÓN GLOBAL (SEGURIDAD)
     // ======================================================================
 
     // Listener de estado de autenticación: Controla el acceso a las páginas
-    auth.onAuthStateChanged(user => {
-        const isLoginPage = window.location.pathname.includes('login.html');
+    // Esta función se ejecuta cada vez que el estado del usuario cambia (inicia sesión, cierra sesión, o carga la página)
+    if (typeof auth !== 'undefined') { // Verifica que Firebase Auth esté cargado
+        auth.onAuthStateChanged(user => {
+            const isLoginPage = window.location.pathname.includes('login.html');
+            const isIndexPage = window.location.pathname.includes('index.html') || window.location.pathname.split('/').pop() === '';
 
-        // Si NO hay usuario y NO estamos en la página de login, redirigimos a login.html
-        if (!user && !isLoginPage) {
-            const currentPath = window.location.pathname.split('/').pop();
-            // Solo redirige si estás en una página de contenido (no index/root)
-            if (currentPath !== 'index.html' && currentPath !== '') {
+            // A) Si NO hay usuario y NO estamos en la página de login o index, redirigimos a login.html
+            if (!user && !isLoginPage && !isIndexPage) {
                 window.location.href = 'login.html';
             }
-        }
-        
-        // Si HAY usuario y estamos en login.html, redirigimos a dashboard.html
-        if (user && isLoginPage) {
-            window.location.href = 'dashboard.html';
-        }
+            
+            // B) Si HAY usuario y estamos en login.html o index.html, redirigimos a dashboard.html
+            if (user && (isLoginPage || isIndexPage)) {
+                window.location.href = 'dashboard.html';
+            }
 
-        // Si el usuario está autenticado, cargamos los datos específicos del módulo
-        if (user) {
-            // Verificamos si las funciones de carga existen y las llamamos
-            if (typeof loadPagamentos === 'function') loadPagamentos();
-            if (typeof loadAlimentos === 'function') loadAlimentos();
-        }
-    });
+            // C) Si el usuario está autenticado, cargamos los datos específicos del módulo
+            if (user) {
+                // Estas funciones se llaman si existen y si el usuario está logueado
+                if (typeof loadPagamentos === 'function') loadPagamentos();
+                if (typeof loadAlimentos === 'function') loadAlimentos();
+            }
+        });
+    }
 
 
     // Lógica de "Cerrar Sesión" para todos los enlaces con la clase 'logout'
     document.querySelectorAll('.logout').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            auth.signOut().then(() => {
-                // Después de cerrar sesión, redirige al login
-                window.location.href = 'login.html';
-            }).catch((error) => {
-                console.error("Error al cerrar sesión:", error);
-            });
+            if (typeof auth !== 'undefined') {
+                auth.signOut().then(() => {
+                    // Después de cerrar sesión, redirige al login
+                    window.location.href = 'login.html';
+                }).catch((error) => {
+                    console.error("Error al cerrar sesión:", error);
+                });
+            } else {
+                console.error("Servicio de autenticación no disponible.");
+            }
         });
     });
 
@@ -53,45 +59,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. LÓGICA DEL MÓDULO LOGIN (login.html) - INICIO DE SESIÓN
     // ======================================================================
 
-    const loginForm = document.getElementById('login-form');
+    // Usa el ID 'login-form' que añadimos a tu formulario en login.html
+    const loginForm = document.getElementById('login-form'); 
 
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            // Usamos 'email' y 'senha' de tu HTML
             const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const messageDiv = document.getElementById('login-message');
+            const password = document.getElementById('senha').value;
+            // Busca un div de mensaje (si existe) para mostrar errores/estados
+            const messageDiv = document.getElementById('login-message'); 
             
             if (messageDiv) {
                 messageDiv.textContent = 'Iniciando sesión...';
                 messageDiv.style.color = 'blue';
             }
+            
+            if (typeof auth !== 'undefined') {
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(() => {
+                        // Éxito: onAuthStateChanged (sección 1) se encarga de la redirección
+                        console.log("Usuario autenticado. Redirección en curso.");
+                    })
+                    .catch((error) => {
+                        console.error("Error de inicio de sesión:", error);
+                        
+                        let friendlyMessage = "Error de autenticación. Verifica tu correo y contraseña.";
+                        if (error.code === 'auth/user-not-found') {
+                            friendlyMessage = "Usuario no encontrado. ¿Necesitas registrarte?";
+                        } else if (error.code === 'auth/wrong-password') {
+                            friendlyMessage = "Contraseña incorrecta.";
+                        } else if (error.code === 'auth/invalid-email') {
+                            friendlyMessage = "Formato de correo inválido.";
+                        } 
 
-            auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Si es exitoso, onAuthStateChanged se encarga de la redirección
-                    console.log("Usuario autenticado. Redirección gestionada por onAuthStateChanged.");
-                })
-                .catch((error) => {
-                    console.error("Error de inicio de sesión:", error);
-                    
-                    let friendlyMessage = "Error de autenticación. Verifica tu correo y contraseña.";
-                    if (error.code === 'auth/user-not-found') {
-                        friendlyMessage = "Usuario no encontrado.";
-                    } else if (error.code === 'auth/wrong-password') {
-                        friendlyMessage = "Contraseña incorrecta.";
-                    } else if (error.code === 'auth/invalid-email') {
-                         friendlyMessage = "Formato de correo inválido.";
-                    } else {
-                        friendlyMessage = `Error de Firebase: ${error.code}`;
-                    }
-
-                    if (messageDiv) {
-                        messageDiv.textContent = friendlyMessage;
-                        messageDiv.style.color = 'red';
-                    }
-                });
+                        if (messageDiv) {
+                            messageDiv.textContent = friendlyMessage;
+                            messageDiv.style.color = 'red';
+                        } else {
+                            // Si no hay div, usamos un alert simple
+                            alert(friendlyMessage);
+                        }
+                    });
+            } else {
+                alert("Error: El servicio de autenticación no se cargó. Revisa js/firebase-init.js.");
+            }
         });
     }
 
@@ -99,17 +113,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ======================================================================
     // 3. LÓGICA DE MÓDULOS DE DATOS (Pagamento, Alimentação, Cadastro)
     // ======================================================================
+    // Esta sección permanece igual a tu código original, asegurando que tus módulos de datos funcionen.
     
-    // Aquí definimos los selectores de los módulos de datos
     const pagamentosBody = document.getElementById('pagamentos-body');
     const alimentacaoBody = document.getElementById('alimentacao-body');
     const cadastroForm = document.getElementById('cadastro-form');
 
     // Funciones de Carga
     function loadPagamentos() {
-        if (!pagamentosBody) return; 
+        if (!pagamentosBody || typeof db === 'undefined') return; 
 
-        // Listener de Real-Time (onSnapshot) es mejor que get() para dashboards
         db.collection('pagamentos').orderBy("fechaVencimiento", "desc").onSnapshot((querySnapshot) => {
             pagamentosBody.innerHTML = '';
             
@@ -137,9 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadAlimentos() {
-        if (!alimentacaoBody) return;
+        if (!alimentacaoBody || typeof db === 'undefined') return;
 
-        // Listener de Real-Time (onSnapshot)
         db.collection('alimentacao').onSnapshot((querySnapshot) => {
             alimentacaoBody.innerHTML = '';
             
@@ -158,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (cadastroForm) {
+    if (cadastroForm && typeof db !== 'undefined') {
         cadastroForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const nombre = document.getElementById('nombre').value;
@@ -190,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Exportar funciones globalmente (necesario para el onAuthStateChanged)
+    // Exportar funciones globalmente (para que onAuthStateChanged pueda llamarlas)
     window.loadPagamentos = loadPagamentos;
     window.loadAlimentos = loadAlimentos;
 

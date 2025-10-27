@@ -6,13 +6,11 @@
     <title>Bem-Estar Escolar - Login</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="login-page"> <!-- CLASE AÑADIDA AQUÍ -->
-    
-    <!-- Se eliminaron las referencias a Firebase (js/firebase-config.js y librerías) -->
+<body class="login-page"> 
 
-    <div class="form-container"> <!-- CLASE AÑADIDA AQUÍ -->
+    <div class="form-container"> 
         <h2>Acesso ao Sistema</h2>
-        <form>
+        <form id="login-form">
             <div class="form-group">
                 <label for="email">E-mail</label>
                 <input type="email" id="email" name="email" required placeholder="seu.email@escola.com">
@@ -21,12 +19,20 @@
                 <label for="senha">Senha</label>
                 <input type="password" id="senha" name="senha" required placeholder="********">
             </div>
+            <div id="login-message" style="margin-bottom: 15px; text-align: center;"></div>
             <button type="submit" class="btn-primary">Entrar</button>
         </form>
         <a href="cadastro.html" class="link-secondary">Não tem conta? Cadastre-se</a>
         <a href="index.html" class="link-secondary">← Voltar ao Início</a>
-    </div> <!-- Cierre de form-container -->
+    </div> 
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="js/firebase-init.js"></script>
 
     <script src="js/main.js"></script>
+
 </body>
 </html>
