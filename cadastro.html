@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Cadastro</title>
+    <title>Bem-Estar Escolar - Cadastro</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+    
     <div class="app-container">
         
         <aside class="sidebar">
@@ -19,41 +19,94 @@
                 <a href="pagamento.html">💳 Pagamento</a>
                 <a href="treinos.html">💪 Treinos</a>
                 <a href="mes.html">📅 Mês</a>
-                <a href="cadastro.html" class="active">➕ Cadastro</a> <a href="#" id="logout-link" class="logout">🚪 Cerrar Sesión</a>
+                <a href="cadastro.html" class="active">➕ Cadastro</a> 
+                <!-- El enlace de cerrar sesión usará la lógica simulada de main.js -->
+                <a href="login.html" id="logout-link" class="logout">🚪 Cerrar Sesión</a>
             </nav>
         </aside>
 
         <main class="content">
             <header>
-                <h2>➕ Módulo de Cadastro</h2>
-                <p>Utiliza este formulario para registrar un nuevo estudiante o actualizar la información del tutor.</p>
+                <h2>➕ Registro de Estudiante y Tutor</h2>
+                <p>Completa la información del estudiante y del tutor principal para el sistema. Todos los campos son obligatorios.</p>
             </header>
             
-            <section class="module-details">
+            <!--
+                El contenedor module-details ahora usa un grid (definido en CSS)
+                para dividir el formulario en dos secciones en pantallas grandes,
+                manteniendo la responsividad.
+            -->
+            <form id="cadastro-form" class="module-details">
+                
+                <!-- Tarjeta de Datos del Estudiante -->
                 <div class="data-card">
-                    <h3>Formulario de Registro de Estudiante</h3>
-                    <form id="cadastro-form">
-                        <div class="form-group">
-                            <label for="nome">Nombre Completo:</label>
-                            <input type="text" id="nome" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha-nac">Fecha de Nacimiento:</label>
-                            <input type="date" id="fecha-nac" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="grado">Grado Escolar:</label>
-                            <select id="grado" required>
-                                <option value="">Seleccione</option>
-                                <option value="1">1° Grado</option>
-                                <option value="2">2° Grado</option>
-                                <option value="3">3° Grado</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="submit-button">Guardar Registro</button>
-                    </form>
-                </div>
-            </section>
+                    <h3>Datos del Estudiante</h3>
+                    
+                    <div class="form-group">
+                        <label for="student-nome">Nombre Completo del Estudiante:</label>
+                        <input type="text" id="student-nome" required placeholder="Ej: María Fernanda López">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="student-fecha-nac">Fecha de Nacimiento:</label>
+                        <input type="date" id="student-fecha-nac" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="student-grado">Grado Escolar:</label>
+                        <select id="student-grado" required>
+                            <option value="">Seleccione</option>
+                            <option value="1">1° Grado</option>
+                            <option value="2">2° Grado</option>
+                            <option value="3">3° Grado</option>
+                            <option value="4">4° Grado</option>
+                            <option value="5">5° Grado</option>
+                            <option value="6">6° Grado</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="student-alergias">Alergias / Notas Médicas (opcional):</label>
+                        <textarea id="student-alergias" rows="3" placeholder="Ej: Alergia al maní. Asma leve."></textarea>
+                    </div>
+
+                </div> <!-- Fin data-card Estudiante -->
+                
+                <!-- Tarjeta de Datos del Tutor y Botón de Envío -->
+                <div class="data-card">
+                    <h3>Datos del Tutor Principal</h3>
+
+                    <div class="form-group">
+                        <label for="tutor-nome">Nombre Completo del Tutor:</label>
+                        <input type="text" id="tutor-nome" required placeholder="Ej: Juan Pérez García">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tutor-email">E-mail de Contacto:</label>
+                        <input type="email" id="tutor-email" required placeholder="tutor@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tutor-telefono">Teléfono de Contacto:</label>
+                        <input type="tel" id="tutor-telefono" required placeholder="(+00) 000-0000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tutor-direccion">Dirección:</label>
+                        <input type="text" id="tutor-direccion" required placeholder="Calle, número, ciudad.">
+                    </div>
+
+                    <!-- Botón de envío que aplica los estilos modernos -->
+                    <button type="submit" class="btn-primary" style="margin-top: 20px;">
+                        Guardar y Finalizar Registro
+                    </button>
+                    <p style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: #666;">
+                        Al guardar, esta información estará disponible en todos los módulos.
+                    </p>
+
+                </div> <!-- Fin data-card Tutor -->
+            </form>
+            
         </main>
 
     </div>

@@ -9,12 +9,12 @@
 <body>
 
     <div class="app-container">
-        
+
         <aside class="sidebar">
-            <div class="logo">Bem-Estar Escolar</div>
+           <div class="logo">Bem-Estar Escolar</div>
             <nav class="nav-links">
                 <a href="dashboard.html">🏠 Inicio</a>
-                <a href="alimentacao.html" class="active">🍎 Alimentação</a> 
+                <a href="alimentacao.html" class="active">🍎 Alimentación</a> 
                 <a href="horario.html">⏰ Horário</a>
                 <a href="pagamento.html">💳 Pagamento</a>
                 <a href="treinos.html">💪 Treinos</a>
@@ -29,15 +29,34 @@
                 <h2>🍎 Módulo de Alimentação</h2>
                 <p>Aquí puedes gestionar y visualizar el menú de comidas de la escuela.</p>
             </header>
-            
+
             <section class="module-details">
                 <div class="data-card">
-                    <h3>Menú de la Semana</h3>
-                    <ul>
-                        <li>**Lunes:** Sopa de legumes e peixe.</li>
-                        <li>**Martes:** Frango grelhado com arroz integral.</li>
-                        <li>**Miércoles:** Macarrão com molho de tomate fresco.</li>
-                        </ul>
+                    <h3>Menú Semanal (Ejemplo)</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Día</th>
+                                <th>Desayuno</th>
+                                <th>Almuerzo</th>
+                                <th>Cena</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alimentacao-body">
+                            <tr>
+                                <td>Lunes</td>
+                                <td>Avena con fruta</td>
+                                <td>Pollo a la plancha con vegetales</td>
+                                <td>Sopa de lentejas</td>
+                            </tr>
+                            <tr>
+                                <td>Martes</td>
+                                <td>Tostada integral y queso</td>
+                                <td>Pescado al horno y arroz</td>
+                                <td>Yogur y fruta</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="data-card">
@@ -45,8 +64,10 @@
                     <p>No se han reportado restricciones activas para este estudiante.</p>
                 </div>
             </section>
-        </main>
+         </main>
 
     </div>
+    <!-- Referencia a main.js para la funcionalidad de navegación -->
+    <script src="js/main.js"></script>
 </body>
 </html>

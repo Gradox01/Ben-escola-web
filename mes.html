@@ -9,39 +9,59 @@
 <body>
 
     <div class="app-container">
-        
+
         <aside class="sidebar">
             <div class="logo">Bem-Estar Escolar</div>
             <nav class="nav-links">
                 <a href="dashboard.html">🏠 Inicio</a>
-                <a href="alimentacao.html">🍎 Alimentação</a>
+                <a href="alimentacao.html">🍎 Alimentación</a>
                 <a href="horario.html">⏰ Horário</a>
                 <a href="pagamento.html">💳 Pagamento</a>
                 <a href="treinos.html">💪 Treinos</a>
-                <a href="mes.html" class="active">📅 Mês</a> <a href="cadastro.html">➕ Cadastro</a>
-                <a href="#" id="logout-link" class="logout">🚪 Cerrar Sesión</a>
+                <a href="mes.html" class="active">📅 Mês</a>
+                <a href="cadastro.html">➕ Cadastro</a>
+                <a href="login.html" class="logout">🚪 Cerrar Sesión</a>
             </nav>
         </aside>
 
         <main class="content">
             <header>
-                <h2>📅 Resumen del Mês</h2>
-                <p>Eventos, reuniones y recordatorios importantes del mes actual.</p>
+                <h2>📅 Módulo de Mês (Calendario)</h2>
+                <p>Consulta los eventos importantes, pruebas y fechas límite del mes.</p>
             </header>
-            
+
             <section class="module-details">
+
                 <div class="data-card">
-                    <h3>Eventos Importantes de Octubre</h3>
+                    <h3>Calendario de Octubre</h3>
+                    <!-- Estructura básica de calendario con tabla para coherencia -->
+                    <table class="calendar">
+                        <thead>
+                            <tr>
+                                <th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                            <tr><td>6</td><td>7</td><td>8</td><td class="event-day">9 (Examen)</td><td>10</td><td>11</td><td>12</td></tr>
+                            <tr><td>13</td><td class="event-day">14 (Feriado)</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                            <tr><td>20</td><td>21</td><td>22</td><td class="event-day">23 (Reunión)</td><td>24</td><td>25</td><td>26</td></tr>
+                            <tr><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="data-card">
+                    <h3>Próximos Eventos</h3>
                     <ul>
-                        <li>**15/10:** Reunión de Padres y Maestros (18:00 hrs)</li>
-                        <li>**23/10:** Día Deportivo Inter-Escolar</li>
-                        <li>**31/10:** Celebración de Halloween (Disfraces opcionales)</li>
+                        <li>**09/Oct:** Examen Final de Matemáticas.</li>
+                        <li>**14/Oct:** Feriado Nacional (Día Festivo).</li>
+                        <li>**23/Oct:** Reunión de Padres y Representantes (18:00 hrs).</li>
                     </ul>
                 </div>
             </section>
         </main>
 
     </div>
-    <script src="js/main.js"></script>
 </body>
 </html>

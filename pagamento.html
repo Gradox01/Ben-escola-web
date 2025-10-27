@@ -9,14 +9,15 @@
 <body>
 
     <div class="app-container">
-        
+
         <aside class="sidebar">
             <div class="logo">Bem-Estar Escolar</div>
             <nav class="nav-links">
                 <a href="dashboard.html">🏠 Inicio</a>
-                <a href="alimentacao.html">🍎 Alimentação</a>
+                <a href="alimentacao.html">🍎 Alimentación</a>
                 <a href="horario.html">⏰ Horário</a>
-                <a href="pagamento.html" class="active">💳 Pagamento</a> <a href="treinos.html">💪 Treinos</a>
+                <a href="pagamento.html" class="active">💳 Pagamento</a>
+                <a href="treinos.html">💪 Treinos</a>
                 <a href="mes.html">📅 Mês</a>
                 <a href="cadastro.html">➕ Cadastro</a>
                 <a href="login.html" class="logout">🚪 Cerrar Sesión</a>
@@ -28,43 +29,47 @@
                 <h2>💳 Módulo de Pagamento</h2>
                 <p>Aquí puedes visualizar el historial de cuotas y el estado de los pagos pendientes.</p>
             </header>
-            
+
             <section class="module-details">
+
+                <!-- Tarjeta de Estado General -->
                 <div class="data-card status-card">
                     <h3>Estado General</h3>
                     <p>Cuota de **Octubre** está: <span style="color: green; font-weight: bold;">PAGADA</span></p>
                     <p>Próximo vencimiento: **1 de Noviembre**</p>
                 </div>
 
+                <!-- Tarjeta de Historial de Pagos -->
                 <div class="data-card">
                     <h3>Historial de Pagos</h3>
+                    <!-- Esta es la única tabla de pagos, corregida y con contenido de ejemplo -->
                     <table>
                         <thead>
                             <tr>
-                                <th>Mes</th>
+                                <th>Descripción</th>
                                 <th>Fecha de Vencimiento</th>
                                 <th>Monto</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="pagamentos-body">
                             <tr>
-                                <td>Octubre</td>
-                                <td>01/10/2025</td>
-                                <td>R$ 450,00</td>
-                                <td style="color: green;">Pagado</td>
+                                <td>Cuota Anual - Matrícula</td>
+                                <td>28/01/2024</td>
+                                <td>R$ 500,00</td>
+                                <td><span style="color: green;">PAGADA</span></td>
                             </tr>
                             <tr>
-                                <td>Septiembre</td>
-                                <td>01/09/2025</td>
-                                <td>R$ 450,00</td>
-                                <td style="color: green;">Pagado</td>
+                                <td>Mensualidad - Septiembre</td>
+                                <td>01/09/2024</td>
+                                <td>R$ 350,00</td>
+                                <td><span style="color: green;">PAGADA</span></td>
                             </tr>
                             <tr>
-                                <td>Noviembre</td>
-                                <td>01/11/2025</td>
-                                <td>R$ 450,00</td>
-                                <td style="color: orange;">Pendiente</td>
+                                <td>Mensualidad - Noviembre</td>
+                                <td>01/11/2024</td>
+                                <td>R$ 350,00</td>
+                                <td><span style="color: orange;">PENDIENTE</span></td>
                             </tr>
                         </tbody>
                     </table>
