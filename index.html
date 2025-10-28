@@ -1,54 +1,75 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+html 
+<lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-Estar Escolar</title>
-    <link rel="stylesheet" href="css/style.css"> 
-    
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            flex-direction: column;
-            font-family: Arial, sans-serif;
-        }
-    </style>
+    <title>Módulo Horário</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> 
 
-    <script src="js/firebase-config.js"></script>
+    <div class="app-container">
+
+        <aside class="sidebar">
+            <div class="logo">Bem-Estar Escolar</div>
+            <nav class="nav-links">
+                <a href="dashboard.html">🏠 Inicio</a>
+                <a href="alimentacao.html">🍎 Alimentação</a>
+                <a href="horario.html" class="active">⏰ Horário</a> 
+                <a href="pagamento.html">💳 Pagamento</a>
+                <a href="treinos.html">💪 Treinos</a>
+                <a href="mes.html">📅 Mês</a>
+                <a href="cadastro.html">➕ Cadastro</a>
+                <a href="login.html" class="logout">🚪 Cerrar Sesión</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h2>⏰ Módulo de Horário Escolar</h2>
+                <p>Aquí puedes visualizar el calendario y las actividades programadas para el estudiante.</p>
+             </header>
+
+            <section class="module-details">
+                <div class="data-card">
+                    <h3>Horario Semanal</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>08:00 - 09:30</td>
+                                <td>Matemáticas</td>
+                                <td>Lenguaje</td>
+                                <td>Ciencias</td>
+                                <td>Matemáticas</td>
+                                <td>Lenguaje</td>
+                            </tr>
+                            <tr>
+                                <td>09:30 - 11:00</td>
+                                <td>Historia</td>
+                                <td>Geografía</td>
+                                <td>Arte</td>
+                                <td>Historia</td>
+                                <td>Educación Física</td>
+                            </tr>
+                            <!-- Puedes agregar más filas aquí si es necesario -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+    </div>
+    <!-- Agregamos la referencia a main.js para asegurar la funcionalidad de navegación -->
     <script src="js/main.js"></script>
-    
-    <h1>Bem-Estar Escolar</h1>
-    <p>Cargando aplicación...</p>
-    
-    <script>
-        // Redirige al usuario a la página de login después de un breve momento (1 segundo)
-        setTimeout(function() {
-            window.location.href = 'login.html';
-        }, 1000); 
-    </script>
-
-<!-- Botão de tradução -->
-<div id="google_translate_element" style="position: fixed; top: 15px; right: 15px; z-index: 9999;"></div>
-
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'es',
-    includedLanguages: 'pt,en,es',
-    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
-  }, 'google_translate_element');
-}
-</script>
-
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></body>
+</body>
 </html>
